@@ -37,7 +37,7 @@
 		"skins.bauble.js": {
 			"position": "top",
 			"scripts": [
-				"resources/scripts/menutoggle.js"
+				"resources/scripts/bauble.js"
 			]
 		}
 	},

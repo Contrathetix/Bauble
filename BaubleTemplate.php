@@ -1,27 +1,31 @@
 <?php
 /**
  * BaseTemplate class for the Bauble skin
- *
- * @ingroup Skins
  */
 class BaubleTemplate extends BaseTemplate {
-	/**
-	 * Outputs the entire contents of the page
-	 */
+
+	// Outputs the entire contents of the page
 	public function execute() {
 
+		// Using custom document and node wrappers
 		$document = new BaubleDocument();
+
+		// Add Google Fonts in a semi-hacky way because the head section from MediaWiki
+		// is returned as a block of text for whatever reason...
 		$head = explode('</head>', $this->get('headelement'));
 		$head2 = implode('', array(
 			$head[0],
-			"<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/icon?family=Material+Icons\">\n",
-			"\t<link href=\"https://fonts.googleapis.com/css?family=Inconsolata|Merienda|Roboto\" rel=\"stylesheet\">\n</head>",
+			"<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/icon?family=Material+Icons\">\n\t",
+			"<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Inconsolata|Merienda|Roboto\">\n",
+			"</head>",
 			$head[1]
 		));
 		$document->set_header($head2);
 
+		// body > header
 		$header = new BaubleNode('header');
 
+		// body > header > div#titlebar
 		$titlebar = new BaubleNode('div', array('id' => 'titlebar'));
 		$titlebar->append(new BaubleNode(
 			'a',
@@ -36,31 +40,31 @@ class BaubleTemplate extends BaseTemplate {
 		$titlebar->append(new BaubleNode('p', array('id' => 'burger', 'class' => 'material-icons'), 'apps'));
 		$header->append($titlebar);
 
+		// body > header > div#mw-navigation
 		$navigation = new BaubleNode('div', array('id' => 'mw-navigation'));
-		//$navigation->append(new BaubleNode('div', array('id' => 'user-tools'), $this->getUserLinks()));	// User Tools
 		$navigation->append(new BaubleNode(null, null, $this->getUserLinks()));	// User Tools
-		//$navigation->append(new BaubleNode('div', array('id' => 'page-tools'), $this->getPageLinks()));	// Page editing and tools
 		$navigation->append(new BaubleNode(null, null, $this->getPageLinks()));	// Page editing and tools
-		//$navigation->append(new BaubleNode('div', array('id' => 'site-navigation'), $this->getSiteNavigation()));	// Site navigation/sidebar
 		$navigation->append(new BaubleNode(null, null, $this->getSiteNavigation()));	// Site navigation/sidebar
 		$header->append($navigation);
 
 		$document->append($header);
 
-		//$document->append(new BaubleNode('a', array('href' => '//google.com'), 'something'));
+		// body > main.mw-body
 		$content = new BaubleNode('main', array('class' => 'mw-body', 'role' => 'main'));
 
 		// site notice and other templates going at the top
-		$content->append(new BaubleNode(null, null, $this->getSiteNotice()));
-		$content->append(new BaubleNode(null, null, $this->getNewTalk()));
+		$content->append($this->getSiteNotice());
+		$content->append($this->getNewTalk());
 		$content->append(new BaubleNode(null, null, $this->getIndicators()));
 
+		// h1.firstHeading
 		$content->append(new BaubleNode(
 			'h1', array('class' => 'firstHeading', 'lang' => $this->get('pageLanguage')),
 			$this->get('title')
 		));
 
-		$content->append(new BaubleNode('div', array('id' => 'contentSub'), $this->getPageSubtitle()));
+		// Actual page content herein
+		$content->append($this->getPageSubtitle());
 		$content->append(new BaubleNode('p', null, $this->get( 'undelete' )));
 		$content->append(new BaubleNode(null, null, $this->get('bodycontent')));
 		$content->append(new BaubleNode('div', array('class' => 'printfooter'), $this->get('printfooter')));
@@ -70,39 +74,27 @@ class BaubleTemplate extends BaseTemplate {
 
 		$document->append($content);
 
+		// body > footer
 		$footer = new BaubleNode('footer');
 		$footer->append(new BaubleNode(null, null, $this->getFooter()));
 		$document->append($footer);
-		
+
+		// some trailing things like scripts at the end
 		$document->append(new BaubleNode(null, null, $this->getTrail()));
 
+		// write out the document to the user
 		$document->dump();
-		return;
-		
-		/*
 
-		$html .= $this->getTrail();
-		$html .= Html::closeElement( 'body' );
-		$html .= Html::closeElement( 'html' );
-
-		echo $html;
-		*/
 	}
 
-	/**
-	 * Generates the search form
-	 * @return string html
-	 */
+	// Generates the search form
 	protected function getSearch() {
-		$form = new BaubleNode(
-			'form',
-			array(
-				'action' => htmlspecialchars( $this->get( 'wgScript' ) ),
-				'role' => 'search',
-				'class' => 'mw-portlet',
-				'id' => 'p-search'
-			)
-		);
+		$form = new BaubleNode('form', array(
+			'action' => htmlspecialchars( $this->get( 'wgScript' ) ),
+			'role' => 'search',
+			'class' => 'mw-portlet',
+			'id' => 'p-search'
+		));
 		$form->append(new BaubleNode('h3', null, Html::label($this->getMsg( 'search' )->escaped(), 'searchInput')));
 		$form->append(new BaubleNode(null, null, $this->makeSearchInput( [ 'id' => 'searchInput' ] )));
 		/*
@@ -112,6 +104,45 @@ class BaubleTemplate extends BaseTemplate {
 		return $form;
 	}
 
+	// Generates siteNotice, if any
+	protected function getSiteNotice() {
+		return new BaubleNode('div', array('id' => 'siteNotice'), $this->get('sitenotice'));
+	}
+
+	// Generates new talk message banner, if any
+	protected function getNewTalk() {
+		return new BaubleNode('div', array('class' => 'usermessage'), $this->get('newtalk'));
+	}
+
+	// Generates subtitle stuff, if any
+	protected function getPageSubtitle() {
+		return new BaubleNode('p', array('id' => 'contentSub'), $this->get('subtitle'));
+	}
+
+	// Generates user tools menu
+	protected function getUserLinks() {
+		return $this->getPortlet('personal', $this->getPersonalTools(), 'personaltools');
+	}
+
+	// Generates category links, if any
+	protected function getCategoryLinks() {
+		if ( $this->data['catlinks'] ) {
+			return $this->get( 'catlinks' );
+		}
+		return '';
+	}
+
+	// Generates data after content stuff, if any
+	protected function getDataAfterContent() {
+		if ( $this->data['dataAfterContent'] ) {
+			return $this->get( 'dataAfterContent' );
+		}
+		return '';
+	}
+
+
+	/* NOTE: the following items are unedited, look messy and need cleaning up */
+
 	/**
 	 * Generates the sidebar
 	 * Set the elements to true to allow them to be part of the sidebar
@@ -120,7 +151,6 @@ class BaubleTemplate extends BaseTemplate {
 	 *  * Languages is the interlanguage links on the page via en:... es:... etc
 	 *  * Default is each user-specified box as defined on MediaWiki:Sidebar; you will still need a foreach loop
 	 *    to parse these.
-	 * @return string html
 	 */
 	protected function getSiteNavigation() {
 		$html = '';
@@ -187,86 +217,6 @@ class BaubleTemplate extends BaseTemplate {
 		);
 
 		return $html;
-	}
-
-	/**
-	 * Generates user tools menu
-	 * @return string html
-	 */
-	protected function getUserLinks() {
-		return $this->getPortlet(
-			'personal',
-			$this->getPersonalTools(),
-			'personaltools'
-		);
-	}
-
-	/**
-	 * Generates siteNotice, if any
-	 * @return string html
-	 */
-	protected function getSiteNotice() {
-		if ( $this->data['sitenotice'] ) {
-			return Html::rawElement(
-				'div',
-				[ 'id' => 'siteNotice' ],
-				$this->get( 'sitenotice' )
-			);
-		}
-		return '';
-	}
-
-	/**
-	 * Generates new talk message banner, if any
-	 * @return string html
-	 */
-	protected function getNewTalk() {
-		if ( $this->data['newtalk'] ) {
-			return Html::rawElement(
-				'div',
-				[ 'class' => 'usermessage' ],
-				$this->get( 'newtalk' )
-			);
-		}
-		return '';
-	}
-
-	/**
-	 * Generates subtitle stuff, if any
-	 * @return string html
-	 */
-	protected function getPageSubtitle() {
-		if ( $this->data['subtitle'] ) {
-			return Html::rawelement (
-				'p',
-				[],
-				$this->get( 'subtitle' )
-			);
-		}
-		return '';
-	}
-
-
-	/**
-	 * Generates category links, if any
-	 * @return string html
-	 */
-	protected function getCategoryLinks() {
-		if ( $this->data['catlinks'] ) {
-			return $this->get( 'catlinks' );
-		}
-		return '';
-	}
-
-	/**
-	 * Generates data after content stuff, if any
-	 * @return string html
-	 */
-	protected function getDataAfterContent() {
-		if ( $this->data['dataAfterContent'] ) {
-			return $this->get( 'dataAfterContent' );
-		}
-		return '';
 	}
 
 	/**
