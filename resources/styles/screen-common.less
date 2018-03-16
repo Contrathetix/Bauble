@@ -1,0 +1,264 @@
+/**
+ * Common styling for the Bauble skin
+ */
+
+@import "variables.less";
+
+// Common properties for everything, should not break anything
+// hopefully but one can never know
+* {
+	font-family: @font-family-normal;
+	font-size: @font-size-normal;
+	line-height: @line-height-default;
+	box-sizing: border-box;
+}
+
+// Removing any wasted space from the document itself
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	background-color: @colour-background;
+
+	header {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		z-index: 10;
+		position: fixed;
+		background-color: @colour-header;
+		box-shadow: @box-shadow-normal;
+
+		div {
+			display: flex;
+			flex-direction: row;
+			width: @content-width;
+			max-width: @content-width-max;
+			margin: 0 auto;
+
+			&#titlebar {
+				padding-top: 8px;
+				padding-bottom: 8px;
+				align-items: center;
+
+				a {
+					text-decoration: none;
+					color: @colour-header-content;
+					font-size: @font-size-heading;
+					font-family: @font-family-artistic;
+				}
+
+				input, p.material-icons {
+					transition: all 0.3s linear;
+				}
+
+				p.material-icons {
+					color: @colour-header-content;
+					margin: 0 0 0 10px;
+					padding: 8px;
+					border-radius: 100%;
+
+					&:hover {
+						cursor: pointer;
+						background-color: @colour-accent;
+					}
+
+					&:active {
+						background-color: transparent;
+					}
+				}
+
+				form {
+					display: flex;
+					flex-direction: row;
+					flex-basis: 50%;
+					margin: 0 0 0 auto;
+					padding: 0;
+
+					input {
+						width: 100%;
+						background: none;
+						border: none;
+						padding: 10px 15px;
+						margin: 0;
+						border-radius: 2px;
+						color: @colour-header-content;
+
+						&:hover {
+							background-color: @colour-accent;
+						}
+					}
+				}
+			}
+
+			&#mw-navigation {
+				display: none;
+				flex-wrap: wrap;
+				flex-direction: row-reverse;
+				align-items: flex-start;
+				justify-content: right;
+				padding: 20px 0;
+				border-top: 1px solid @colour-accent;
+
+				div {
+					display: flex;
+					flex-direction: column;
+					flex-basis: 30%;
+					flex-grow: 0;
+					margin: 0 20px 20px 0;
+					padding: 0;
+
+					li, a {
+						color: @colour-header-content;
+					}
+
+					&.mw-portlet-body {
+						margin: 0;
+						padding: 0;
+					}
+
+					h3 {
+						margin: 0 0 5px 0;
+						padding: 7px 10px;
+						color: @colour-header;
+						background-color: @colour-header-content;
+						font-size: @font-size-normal;
+						font-weight: normal;
+					}
+
+					ul {
+						list-style: none;
+						display: flex;
+						flex-direction: column;
+						margin: 0;
+						padding: 0 10px;
+
+						li {
+							padding: 5px 0;
+						}
+					}
+				}
+			}		
+		}
+	}
+
+	main {
+		width: @content-width;
+		max-width: @content-width-max;
+		margin: 80px auto 40px auto;
+		//color: @colour-content;
+
+		table {
+			text-align: left;
+		}
+
+		h1, h1.firstHeading,
+		h2, h2 span, div#mw-pages h2,
+		h3 {
+			border-bottom: 1px solid @colour-content;
+			font-size: @font-size-heading;
+			font-weight: normal;
+			margin: 30px 0 10px 0;
+			padding-bottom: 5px;
+		}
+
+		h2 span {
+			border: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		h1.firstHeading {
+			margin-top: 0;
+		}
+
+		//div.mw-indicators, <-- leaving visible for now...
+		div#mw-pages h3,
+		div.mw-userlogin-help,
+		#mw-indicator-mw-helplink {
+			display: none;
+		}
+
+		div, p, li, span {
+			line-height: @line-height-normal;
+			text-align: justify;
+		}
+
+		code, kbd, pre, samp, .mw-code, .mw-body .mw-code {
+			font-family: @font-family-monospaced;
+			overflow: auto;
+			white-space: pre-wrap;
+		}
+
+		div#toc {
+			margin: 10px 0;
+			width: 100%;
+			padding: 10px 20px;
+			border: none;
+			background-color: @colour-nonwhite;
+			h2 {
+				font-weight: normal;
+			}
+		}
+
+		#catlinks {
+			margin: 30px 0 20px 0;
+			background-color: @colour-nonwhite;
+			border: none;
+			padding: 10px;
+		}
+
+		.mw-htmlform {
+			margin-bottom: 15px;
+		}
+		
+	}
+
+	footer {
+		margin: 0;
+		background-color: @colour-content;
+		margin-top: auto;
+		ul {
+			list-style: none;
+			display: flex;
+			width: @content-width;
+			margin: 40px auto;
+			padding: 0;
+			max-width: @content-width-max;
+			flex-direction: row-reverse;
+			justify-content: space-between;
+			li, a, a:visited, a:focus, a:hover {
+				font-size: @font-size-small;
+				color: @colour-nonwhite;
+			}
+		}
+	}
+
+	a.new, header div#mw-navigation div li.new a {
+		color: @colour-red;
+	}
+
+	.center,
+	.center * {
+		margin: auto;
+		text-align: center;
+	}
+
+	#p-search h3 {
+		.hidden;
+	}
+
+	/*
+	.mw-body {
+		position: relative;
+		word-wrap: break-word;
+	}
+	*/
+
+}

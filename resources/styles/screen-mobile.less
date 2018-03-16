@@ -1,0 +1,47 @@
+/**
+ * Bauble skin adjustments for devices with smaller screens
+ */
+
+@import "variables.less";
+
+body {
+
+	main,
+	header div,
+	footer ul {
+		width: @content-width-mobile
+	}
+
+	header {
+		position: relative;
+
+		div#mw-navigation {
+			flex-direction: column-reverse;
+
+			div {
+				margin-right: 0;
+				margin-bottom: 0;
+				width: 100%;
+
+				&:last-child {
+					margin-bottom: 20px;
+				}
+			}
+		}
+	}
+
+	main {
+		margin-top: 20px;
+	}
+
+	footer ul {
+		flex-direction: column;
+		li {
+			margin-bottom: 15px;
+		}
+	}
+
+	.nomobile {
+		display: none;
+	}
+}

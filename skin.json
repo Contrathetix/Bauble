@@ -1,0 +1,55 @@
+{
+	"name": "Bauble",
+	"version": "1.0.0",
+	"author": "Contrathetix",
+	"url": "https://github.com/Contrathetix/Bauble",
+	"descriptionmsg": "bauble-desc",
+	"namemsg": "skinname-bauble",
+	"license-name": "-",
+	"type": "skin",
+	"ValidSkinNames": {
+		"bauble": "Bauble"
+	},
+	"MessagesDirs": {
+		"Bauble": [
+			"i18n"
+		]
+	},
+	"ResourceModules": {
+		"skins.bauble": {
+			"class": "ResourceLoaderSkinModule",
+			"position": "top",
+			"styles": {
+				"resources/libraries/normalise.css": {
+					"media": "screen"
+				},
+				"resources/styles/screen-common.less": {
+					"media": "screen"
+				},
+				"resources/styles/screen-mobile.less": {
+					"media": "screen and (max-width: 750px)"
+				},
+				"resources/styles/print.css": {
+					"media": "print"
+				}
+			}
+		},
+		"skins.bauble.js": {
+			"position": "top",
+			"scripts": [
+				"resources/scripts/menutoggle.js"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteSkinPath": "Bauble"
+	},
+	"AutoloadClasses": {
+		"SkinBauble": "Bauble.skin.php",
+		"BaubleTemplate": "BaubleTemplate.php",
+		"BaubleNode": "BaubleNode.php",
+		"BaubleDocument": "BaubleDocument.php"
+	},
+	"manifest_version": 1
+}

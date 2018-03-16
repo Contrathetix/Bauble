@@ -1,0 +1,7 @@
+{
+	"@metadata": {
+		"authors": [ "Contrathetix" ]
+	},
+	"skinname-bauble": "{{optional}}",
+	"bauble-desc": "{{desc|what=skin|name=Bauble|url=https://github.com/Contrathetix/Bauble}}"
+}

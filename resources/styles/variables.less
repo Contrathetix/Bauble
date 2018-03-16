@@ -1,0 +1,43 @@
+/**
+ * Variables used in the various .less files around the skin,
+ * to make editing things easier to avoid re-typing stuff.
+ *
+ */
+
+// Some random leftover declarations from the Example skin that
+// I am currently too afraid to delete in case something breaks
+@width: 66em;
+@border: #ccc;
+.hidden() {
+	// To hide objects, but keep them accessible for screen-readers
+	position: absolute;
+	top: -9999px;
+}
+
+// Font declarations herein, using Google Fonts
+@font-family-normal: 'Roboto', sans-serif;
+@font-family-monospaced: 'Inconsolata', monospace;
+@font-family-artistic: 'Merienda', cursive;
+@font-size-normal: 12px;
+@font-size-heading: 1.2rem;
+@font-size-small: 0.9rem;
+@line-height-default: 1;
+@line-height-normal: 1.6;
+
+// Content width management
+@content-width: 70%;
+@content-width-mobile: 90%;
+@content-width-max: 800px;
+@content-width-max-mobile: initial;
+
+// Colours declared herein
+@colour-header: rgb(255,255,255);
+@colour-header-content: rgb(0,0,0);
+@colour-background: rgb(255,255,255);
+@colour-content: rgb(0,0,0);
+@colour-accent: rgba(0,0,0,0.1);
+@colour-nonwhite: rgb(200,200,200);
+@colour-red: rgb(180,10,10);
+
+// Miscellanea
+@box-shadow-normal: 0 0 4px @colour-content;
