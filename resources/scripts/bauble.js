@@ -5,8 +5,10 @@
 'use strict'
 
 $(document).ready(function() {
-    let navigation = $('#mw-navigation')
-    let elementsToRemove = [ $('div#toolbar') ]
+
+    const navigation = $('#mw-navigation')
+
+    const elementsToRemove = [ $('div#toolbar') ]
     $.each(navigation.find('div.mw-portlet'), function() {
         if ($(this).find('div.mw-portlet-body ul li').length < 1) {
             elementsToRemove.push.apply(elementsToRemove, $(this))
@@ -15,14 +17,12 @@ $(document).ready(function() {
     $.each(elementsToRemove, function() {
         if ($(this)) { $(this).remove() }
     })
-    let displayIfNotEmpty = [
-        'div#siteNotice', 'div.usermessage', 'div.mw-indicators'
-    ]
-    for (let i=0; i<displayIfNotEmpty.length; i++) {
-        if ($(displayIfNotEmpty[i]).children().length > 0) {
-            $(displayIfNotEmpty[i]).css('display', 'block')
-        }
-    }
+
+    const displayIfNotEmpty = [ 'div#siteNotice', 'div.usermessage', 'div.mw-indicators' ]
+    displayIfNotEmpty.map(function(item) {
+        if ($(item).children().length > 0) { $(item).css('display', 'block') }
+    })
+
     $('#burger').on('click', function() {
         if (navigation.css('display') != 'flex') {
             navigation.css('display', 'flex').hide().fadeIn(500)
@@ -30,4 +30,5 @@ $(document).ready(function() {
             navigation.fadeOut(500)
         }
     })
+
 })

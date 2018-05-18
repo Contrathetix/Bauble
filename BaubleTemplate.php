@@ -16,7 +16,8 @@ class BaubleTemplate extends BaseTemplate {
 		$head2 = implode('', array(
 			$head[0],
 			"<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/icon?family=Material+Icons\">\n\t",
-			"<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Inconsolata|Merienda|Roboto\">\n",
+			//"<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Inconsolata|Merienda|Roboto\">\n",
+			"<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Noto+Sans|Noto+Mono\">\n",
 			"</head>",
 			$head[1]
 		));

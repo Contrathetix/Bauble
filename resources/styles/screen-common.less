@@ -4,7 +4,7 @@
 
 @import "variables.less";
 
-// Common properties for everything, should not break anything
+// common properties for everything, should not break anything
 // hopefully but one can never know
 * {
 	font-family: @font-family-normal;
@@ -13,7 +13,7 @@
 	box-sizing: border-box;
 }
 
-// Removing any wasted space from the document itself
+// removing any wasted space from the document itself
 html,
 body {
 	margin: 0;
@@ -29,6 +29,7 @@ body {
 	header {
 		display: flex;
 		flex-direction: column;
+		padding: 8px 40px 0 40px;
 		width: 100%;
 		z-index: 10;
 		position: fixed;
@@ -38,19 +39,16 @@ body {
 		div {
 			display: flex;
 			flex-direction: row;
-			width: @content-width;
-			max-width: @content-width-max;
-			margin: 0 auto;
+			margin: 0;
 
 			&#titlebar {
-				padding-top: 8px;
-				padding-bottom: 8px;
 				align-items: center;
+				padding-bottom: 8px;
 
 				a {
 					text-decoration: none;
 					color: @colour-header-content;
-					font-size: @font-size-heading;
+					font-size: @font-size-normal;
 					font-family: @font-family-artistic;
 				}
 
@@ -78,6 +76,7 @@ body {
 					display: flex;
 					flex-direction: row;
 					flex-basis: 50%;
+					max-width: 800px;
 					margin: 0 0 0 auto;
 					padding: 0;
 
@@ -102,15 +101,16 @@ body {
 				flex-wrap: wrap;
 				flex-direction: row-reverse;
 				align-items: flex-start;
-				justify-content: right;
+				justify-content: left;
 				padding: 20px 0;
 				border-top: 1px solid @colour-accent;
 
 				div {
 					display: flex;
 					flex-direction: column;
-					flex-basis: 30%;
-					flex-grow: 0;
+					flex-basis: 15%;
+					min-width: 240px;
+					flex-grow: 1;
 					margin: 0 20px 20px 0;
 					padding: 0;
 
@@ -181,8 +181,12 @@ body {
 		//div.mw-indicators, <-- leaving visible for now...
 		div#mw-pages h3,
 		div.mw-userlogin-help,
-		#mw-indicator-mw-helplink {
+		#mw-indicator-mw-helplink > a {
 			display: none;
+		}
+
+		input#wpWatchthis.oo-ui-inputWidget-input {
+			opacity: 1;
 		}
 
 		div#siteNotice, div.usermessage, div.mw-indicators {
@@ -194,7 +198,7 @@ body {
 			text-align: justify;
 		}
 
-		code, kbd, pre, samp, .mw-code, .mw-body .mw-code {
+		code, kbd, pre, samp, .mw-code, .mw-body .mw-code, .mw-editfont-monospace {
 			font-family: @font-family-monospaced;
 			overflow: auto;
 			white-space: pre-wrap;
@@ -208,6 +212,42 @@ body {
 			background-color: @colour-nonwhite;
 			h2 {
 				font-weight: normal;
+			}
+		}
+
+		.oo-ui-actionFieldLayout-button {
+			width: auto;
+		}
+
+		img.thumbimage {
+			width: 100%;
+			height: auto;
+		}
+
+		ul#preftoc {
+			padding: 0;
+			margin: 6px 0;
+			list-style-type: none;
+			display: flex;
+			flex-direction: row;
+			li {
+				padding: 8px 10px;
+			}
+		}
+		fieldset {
+			padding: 8px 10px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			td {
+				padding: 4px 8px;
+				line-height: 1.5;
+			}
+		}
+
+		.mw-datatable, .wikitable {
+			width: 100%;
+			th, td {
+				padding: 5px 8px;
 			}
 		}
 

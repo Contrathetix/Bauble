@@ -1,6 +1,6 @@
 {
 	"name": "Bauble",
-	"version": "1.0.0",
+	"version": "2018-05-18",
 	"author": "Contrathetix",
 	"url": "https://github.com/Contrathetix/Bauble",
 	"descriptionmsg": "bauble-desc",
@@ -24,6 +24,9 @@
 					"media": "screen"
 				},
 				"resources/styles/screen-common.less": {
+					"media": "screen"
+				},
+				"resources/styles/templates.less": {
 					"media": "screen"
 				},
 				"resources/styles/screen-mobile.less": {
