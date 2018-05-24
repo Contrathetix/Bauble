@@ -11,25 +11,27 @@
 	font-size: @font-size-normal;
 	line-height: @line-height-default;
 	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
 }
 
 // removing any wasted space from the document itself
 html,
 body {
-	margin: 0;
-	padding: 0;
 	height: 100%;
 }
 
 body {
+
 	display: flex;
 	flex-direction: column;
 	background-color: @colour-background;
 
 	header {
+
 		display: flex;
 		flex-direction: column;
-		padding: 8px 40px 0 40px;
+		padding: 10px 40px 0 40px;
 		width: 100%;
 		z-index: 10;
 		position: fixed;
@@ -37,13 +39,13 @@ body {
 		box-shadow: @box-shadow-normal;
 
 		div {
+
 			display: flex;
 			flex-direction: row;
-			margin: 0;
 
 			&#titlebar {
 				align-items: center;
-				padding-bottom: 8px;
+				padding-bottom: 5px;
 
 				a {
 					text-decoration: none;
@@ -58,8 +60,8 @@ body {
 
 				p.material-icons {
 					color: @colour-header-content;
-					margin: 0 0 0 10px;
-					padding: 8px;
+					margin: 0 0 0 20px;
+					padding: 10px;
 					border-radius: 100%;
 
 					&:hover {
@@ -77,20 +79,20 @@ body {
 					flex-direction: row;
 					flex-basis: 50%;
 					max-width: 800px;
-					margin: 0 0 0 auto;
-					padding: 0;
+					margin-left: auto;
 
 					input {
+						text-align: right;
 						width: 100%;
 						background: none;
 						border: none;
-						padding: 10px 15px;
-						margin: 0;
-						border-radius: 2px;
+						border-bottom: 1px solid transparent;
+						padding: 5px;
+						border-radius: 0;
 						color: @colour-header-content;
 
-						&:hover {
-							background-color: @colour-accent;
+						&:hover, &:focus {
+							border-color: @colour-header-content;
 						}
 					}
 				}
@@ -149,18 +151,70 @@ body {
 	}
 
 	main {
+
 		width: @content-width;
 		max-width: @content-width-max;
 		margin: 80px auto 40px auto;
 		//color: @colour-content;
 
-		table {
-			text-align: left;
+		table, p, li, a, b, h1, h2, h3, h4, h5, h6, blockquote {
+			text-align: justify;
+			line-height: @line-height-normal;
+			//color: @colour-content;
+		}
+
+		table, blockquote, p, a, b {
+			margin-top: 15px;
+		}
+
+		code, kbd, pre, samp, .mw-code, .mw-body .mw-code, .mw-editfont-monospace {
+			font-size: @font-size-code;
+			font-family: @font-family-monospaced;
+		}
+
+		.mw-editfont-monospace {
+			font-size: @font-size-small;
+		}
+
+		code, pre, #catlinks {
+			background-color: @colour-accent;
+			//border: 1px solid @colour-nonwhite;
+		}
+
+		code {
+			padding: 2px 4px;
+		}
+		
+		pre {
+			padding: 15px;
+			overflow-x: scroll;
+			border-left: 4px solid @colour-nonwhite;
+		}
+
+		li {
+			padding-left: 20px;
+		}
+
+		ul {
+			list-style-type: disc;
+		}
+
+		ul, .mw-content-ltr ul, .mw-content-rtl .mw-content-ltr ul
+		ol, .mw-content-ltr ol, .mw-content-rtl .mw-content-ltr ol {
+			margin-left: 30px;
+			margin-right: 30px;
+		}
+
+		h3, h4, h5, h6 {
+			font-weight: normal;
+			font-size: @font-size-normal;
+			margin: 20px 0 10px 0;
+			padding-bottom: 4px;
+			border-bottom: 1px solid @colour-nonwhite;
 		}
 
 		h1, h1.firstHeading,
-		h2, h2 span, div#mw-pages h2,
-		h3 {
+		h2, div#mw-pages h2 {
 			border-bottom: 1px solid @colour-content;
 			font-size: @font-size-heading;
 			font-weight: normal;
@@ -168,17 +222,28 @@ body {
 			padding-bottom: 5px;
 		}
 
-		h2 span {
-			border: none;
-			margin: 0;
-			padding: 0;
-		}
-
 		h1.firstHeading {
-			margin-top: 0;
+			margin-top: 20px;
 		}
 
-		//div.mw-indicators, <-- leaving visible for now...
+		blockquote {
+			font-size: @font-size-small;
+			display: block;
+			font-style: italic;
+			padding: 10px 40px 10px 20px;
+			//background-color: @colour-accent;
+			border-left: 4px solid @colour-nonwhite;
+			margin-left: 10px;
+		}
+
+		table, .mw-datatable, .wikitable {
+			text-align: left;
+			width: 100%;
+			th, td {
+				padding: 5px 8px;
+			}
+		}
+
 		div#mw-pages h3,
 		div.mw-userlogin-help,
 		#mw-indicator-mw-helplink > a {
@@ -187,32 +252,6 @@ body {
 
 		input#wpWatchthis.oo-ui-inputWidget-input {
 			opacity: 1;
-		}
-
-		div#siteNotice, div.usermessage, div.mw-indicators {
-			display: none;
-		}
-
-		div, p, li, span {
-			line-height: @line-height-normal;
-			text-align: justify;
-		}
-
-		code, kbd, pre, samp, .mw-code, .mw-body .mw-code, .mw-editfont-monospace {
-			font-family: @font-family-monospaced;
-			overflow: auto;
-			white-space: pre-wrap;
-		}
-
-		div#toc {
-			margin: 10px 0;
-			width: 100%;
-			padding: 10px 20px;
-			border: none;
-			background-color: @colour-nonwhite;
-			h2 {
-				font-weight: normal;
-			}
 		}
 
 		.oo-ui-actionFieldLayout-button {
@@ -244,18 +283,11 @@ body {
 			}
 		}
 
-		.mw-datatable, .wikitable {
-			width: 100%;
-			th, td {
-				padding: 5px 8px;
-			}
-		}
-
 		#catlinks {
 			margin: 30px 0 20px 0;
-			background-color: @colour-nonwhite;
+			padding: 10px 20px;
 			border: none;
-			padding: 10px;
+			border-left: 4px solid @colour-nonwhite;
 		}
 
 		.mw-htmlform {
@@ -278,6 +310,7 @@ body {
 			flex-direction: row-reverse;
 			justify-content: space-between;
 			li, a, a:visited, a:focus, a:hover {
+				text-decoration: none;
 				font-size: @font-size-small;
 				color: @colour-nonwhite;
 			}
@@ -297,12 +330,5 @@ body {
 	#p-search h3 {
 		.hidden;
 	}
-
-	/*
-	.mw-body {
-		position: relative;
-		word-wrap: break-word;
-	}
-	*/
 
 }

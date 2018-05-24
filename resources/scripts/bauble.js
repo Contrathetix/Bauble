@@ -20,7 +20,16 @@ $(document).ready(function() {
 
     const displayIfNotEmpty = [ 'div#siteNotice', 'div.usermessage', 'div.mw-indicators' ]
     displayIfNotEmpty.map(function(item) {
-        if ($(item).children().length > 0) { $(item).css('display', 'block') }
+        if ($(item).children().length > 0) {
+            $(item).css('display', 'block')
+        }
+    })
+
+    const removeIfEmpty = [ 'div#siteNotice', 'div.usermessage', 'div.mw-indicators' ]
+    removeIfEmpty.map(function(item) {
+        if ($(item).children().length < 1) {
+            $(item).remove()
+        }
     })
 
     $('#burger').on('click', function() {
