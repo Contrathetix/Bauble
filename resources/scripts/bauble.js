@@ -21,7 +21,7 @@ $(document).ready(function() {
     const displayIfNotEmpty = [ 'div#siteNotice', 'div.usermessage', 'div.mw-indicators' ]
     displayIfNotEmpty.map(function(item) {
         if ($(item).children().length > 0) {
-            $(item).css('visibility', 'visible')
+            $(item).css('display', 'block')
         }
     })
 
